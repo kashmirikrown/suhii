@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy New Year 2025</title>
   <style>
-    /* Set background to a dark, starry night */
+    /* Set background to a smooth gradient with soft floral elements */
     body {
       margin: 0;
       height: 100vh;
-      background-color: black;
+      background: linear-gradient(to bottom, #ff7f50, #ff1493); /* Soft flower-inspired gradient */
       color: white;
       font-family: 'Arial', sans-serif;
       display: flex;
@@ -18,26 +18,29 @@
       flex-direction: column;
       overflow: hidden;
       text-align: center;
+      position: relative;
     }
 
     /* Styling for the main message */
     .message {
       font-size: 48px;
       font-weight: bold;
-      color: gold;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
       opacity: 0;
       animation: fadeIn 3s forwards;
+      margin-bottom: 20px;
     }
 
-    /* Animations for the fireworks */
-    .firework {
+    /* Flower animations */
+    .flower {
       position: absolute;
       border-radius: 50%;
-      background-color: rgba(255, 215, 0, 0.8);
-      width: 10px;
-      height: 10px;
+      background-color: rgba(255, 192, 203, 0.7); /* Soft pink color */
+      width: 20px;
+      height: 20px;
+      animation: flowerAnim 5s infinite ease-in-out;
       opacity: 0;
-      animation: explode 1s forwards;
     }
 
     /* Animation for text fading in */
@@ -52,6 +55,76 @@
       }
     }
 
+    /* Animation for flower movement */
+    @keyframes flowerAnim {
+      0% {
+        opacity: 0;
+        transform: scale(0) translateY(100px) rotate(0deg);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1) translateY(0) rotate(180deg);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0) translateY(-100px) rotate(360deg);
+      }
+    }
+
+    /* Styling for the moving car */
+    .car {
+      position: absolute;
+      bottom: 50px;
+      width: 120px;
+      height: 60px;
+      background-color: #2c3e50;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      animation: driveCar 10s linear infinite;
+    }
+
+    /* Car wheels */
+    .wheel {
+      position: absolute;
+      bottom: -10px;
+      width: 20px;
+      height: 20px;
+      background-color: black;
+      border-radius: 50%;
+    }
+
+    .wheel.left {
+      left: 20px;
+    }
+
+    .wheel.right {
+      right: 20px;
+    }
+
+    /* Styling for the message above the car */
+    .car-message {
+      position: absolute;
+      top: -30px;
+      font-size: 24px;
+      font-weight: bold;
+      color: yellow;
+      white-space: nowrap;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Keyframes for car movement */
+    @keyframes driveCar {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-120%);
+      }
+    }
+
     /* Animation for fireworks explosion */
     @keyframes explode {
       0% {
@@ -63,6 +136,40 @@
         transform: scale(5) translateY(-100px);
       }
     }
+
+    /* Animating flowing flowers around the car */
+    .flowing-flower {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(255, 105, 180, 0.8); /* Hot pink color */
+      width: 15px;
+      height: 15px;
+      animation: flowAround 7s infinite ease-in-out;
+      opacity: 0;
+    }
+
+    @keyframes flowAround {
+      0% {
+        transform: translate(0, 0) scale(0) rotate(0deg);
+        opacity: 0;
+      }
+      25% {
+        transform: translate(50px, 50px) scale(1) rotate(90deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translate(100px, 100px) scale(1) rotate(180deg);
+        opacity: 1;
+      }
+      75% {
+        transform: translate(150px, 50px) scale(1) rotate(270deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(200px, 0) scale(0) rotate(360deg);
+        opacity: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -70,14 +177,51 @@
   <!-- Display the "Happy New Year 2025" message -->
   <div class="message">
     Happy New Year 2025
-
-    BY SOFI SUHAIL
+    <br>
+    <span style="font-size: 20px;">BY SOFI SUHAIL</span>
   </div>
+
+  <!-- Flower container -->
+  <div id="flower-container"></div>
 
   <!-- Fireworks container -->
   <div id="fireworks-container"></div>
 
+  <!-- Car container -->
+  <div class="car">
+    <!-- Message on top of the car -->
+    <div class="car-message">Happy New Year 2025! 🎉</div>
+    
+    <!-- Car wheels -->
+    <div class="wheel left"></div>
+    <div class="wheel right"></div>
+  </div>
+
+  <!-- Flowing flowers -->
+  <div class="flowing-flower"></div>
+  <div class="flowing-flower" style="animation-delay: 1s;"></div>
+  <div class="flowing-flower" style="animation-delay: 2s;"></div>
+  <div class="flowing-flower" style="animation-delay: 3s;"></div>
+
   <script>
+    // Function to create flowers
+    function createFlower() {
+      const flower = document.createElement("div");
+      flower.classList.add("flower");
+      
+      // Random position for each flower
+      flower.style.left = `${Math.random() * window.innerWidth}px`;
+      flower.style.top = `${Math.random() * window.innerHeight}px`;
+      
+      // Append the flower to the container
+      document.getElementById('flower-container').appendChild(flower);
+
+      // Remove the flower after animation ends
+      setTimeout(() => {
+        flower.remove();
+      }, 5000); // Flower lasts for the full animation time
+    }
+
     // Function to create fireworks
     function createFirework() {
       const firework = document.createElement("div");
@@ -95,6 +239,9 @@
         firework.remove();
       }, 1000);
     }
+
+    // Create flowers every 500ms
+    setInterval(createFlower, 500);
 
     // Create fireworks every 300ms
     setInterval(createFirework, 300);
