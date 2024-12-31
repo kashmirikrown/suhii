@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy New Year 2025</title>
+  <style>
+    /* Set background to a dark, starry night */
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: black;
+      color: white;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Styling for the main message */
+    .message {
+      font-size: 48px;
+      font-weight: bold;
+      color: gold;
+      opacity: 0;
+      animation: fadeIn 3s forwards;
+    }
+
+    /* Animations for the fireworks */
+    .firework {
+      position: absolute;
+      border-radius: 50%;
+      background-color: rgba(255, 215, 0, 0.8);
+      width: 10px;
+      height: 10px;
+      opacity: 0;
+      animation: explode 1s forwards;
+    }
+
+    /* Animation for text fading in */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animation for fireworks explosion */
+    @keyframes explode {
+      0% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(5) translateY(-100px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Display the "Happy New Year 2025" message -->
+  <div class="message">
+    Happy New Year 2025
+  </div>
+
+  <!-- Fireworks container -->
+  <div id="fireworks-container"></div>
+
+  <script>
+    // Function to create fireworks
+    function createFirework() {
+      const firework = document.createElement("div");
+      firework.classList.add("firework");
+      
+      // Random position for each firework
+      firework.style.left = `${Math.random() * window.innerWidth}px`;
+      firework.style.top = `${Math.random() * window.innerHeight}px`;
+      
+      // Append the firework to the container
+      document.getElementById('fireworks-container').appendChild(firework);
+
+      // Remove the firework after animation ends
+      setTimeout(() => {
+        firework.remove();
+      }, 1000);
+    }
+
+    // Create fireworks every 300ms
+    setInterval(createFirework, 300);
+
+    // Make the "Happy New Year 2025" message appear after a short delay
+    window.onload = () => {
+      setTimeout(() => {
+        document.querySelector('.message').style.opacity = 1;
+      }, 1000);
+    };
+  </script>
+</body>
+</html>
